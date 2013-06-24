@@ -1,101 +1,24 @@
 <html>
 <head>
-<title>To-Do List</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+$('#btnName').click(function(){
+    //var text = $('#inputName').val() + '<button>x</button>';
+    $('#todo').append('<li />' + $('inputname').val() + "</li />");
+});
 
-<style>
-a:link{color:#020967; text-decoration:none;}
-a:active{color:#020967; text-decoration:none;}
-a:hover{color:#121212; text-decoration:none;}
-a:visited{color:#020967; text-decoration:none;}
-
-body {
-width:100%; 
-/* background-color:#1F2F8A;  */
-color:#020967;
-border:2px solid #020967;
-padding-top:10px;
-overflow-x:hidden;
-}
-
-#doc #content p {
-cursor: pointer;
-width:95%;
-white-space:normal;
-text-indent:-15px;
-padding-left:15px;
-height:29px;
-padding-top:5px;
-line-height:24px;
-}
-
-</style>
-
-<script type="text/javascript">
-
-function kill(tr) {
-	tr.parentNode.removeChild(tr);
-	var getallcontent = el("content");
-	var allcontent = getallcontent.innerHTML;
-	el("content").innerHTML = save("myTasks.txt", allcontent);
-	window.location.reload();
-}
-
-function el(tid) {
-return document.getElementById(tid);
-}
-
-function load(filename) {   //IE FSO file Loader
-          var fso, file;
-          fso = new ActiveXObject('Scripting.FileSystemObject');
-          file = fso.OpenTextFile(filename, 1, false);
-          var name = file.readAll();
-          file.Close();
-	return name;
-} 
-
-function save(filename, sData){   //IE FSO file Saver
-          var fso, file;
-          fso = new ActiveXObject('Scripting.FileSystemObject');
-          file = fso.CreateTextFile(filename, 2, false);
-          file.write(sData);
-          file.Close();
-	return file;
-} 
-
-
-
-function newItem(strData){
-	var ListItem = strData || prompt("What would you like to add to the list?","To-Do Item");
-        var elm = document.createElement('p');
-	var cont = el("content");
-        elm.innerHTML = ListItem;
-	elm.onclick=function(e) { kill(this); }
-	elm.setAttribute("onclick", "kill(this)");
-	cont.appendChild( elm );
-	var inht = cont.innerHTML;
-	save("myTasks.txt", inht);
-	window.location.reload();
-}
-
-
-window.onload =  function() {
-	try{  
-	el("content").innerHTML = load("myTasks.txt") || "" ; 
-	}
-	catch(y){};
-}//end onload
-
+$('ul').on('click','button' , function(el){
+    $(this).parent().remove()
+});
 </script>
-
-
 </head>
+
 <body>
-<div style="position:absolute; top:0px; margin-left:-5px; width:115%; height:22px;">
-</div>
-<div id="doc">
-      <h2>To-Do List</h2>
-      <p id="add-element" style="padding-top:7px; margin-bottom:22px;" onclick="newItem()"><u>Add Item</u></p>
-      <div id="content"></div>
-</div>
+<p>New to-do: 
+<input type="test" id="inputName" />
+<button id="btnName">Add</button>
+</p>
+
+<p><ul class="todo"></ul></p>
 
 </body>
+</html>
